@@ -1,5 +1,7 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:5000/coches';
+import API_BASE_URL from '../config/api';
+
+const API_URL = `${API_BASE_URL}/coches`;
 
 export const createCoche = async (data) => {
   try {

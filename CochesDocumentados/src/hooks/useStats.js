@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 export const useStats = () => {
   const fetched = useRef(false);
@@ -13,7 +14,7 @@ export const useStats = () => {
 
     const fetchStats = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/coches/stats');
+        const response = await axios.get(`${API_BASE_URL}/coches/stats`);
         setStats(response.data);
       } catch (err) {
         setError(err.message);
