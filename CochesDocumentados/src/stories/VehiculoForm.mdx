@@ -1,0 +1,75 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from "../components/VehiculoForm.stories.jsx";
+import VehiculoForm from '../components/VehiculoForm.jsx';
+
+<Meta of={Stories} />
+
+# VehiculoForm
+
+El componente **VehiculoForm** permite al usuario publicar un vehículo en venta mediante un formulario claro, guiado y validado.
+
+Está pensado para evitar errores comunes antes de que ocurran, ofreciendo información contextual y feedback inmediato.
+
+---
+
+## ¿Cuándo usar este componente?
+
+Este formulario es ideal para:
+
+- Paneles de administración
+- Aplicaciones de compraventa
+- Gestión de vehículos
+- Formularios donde la calidad del dato es importante
+
+---
+
+## Datos que solicita
+
+El formulario solicita la siguiente información:
+
+- **Marca del vehículo**  
+  Campo obligatorio, no se permiten valores vacíos.
+
+- **Descripción**  
+  Campo obligatorio, permite explicar el estado y características del vehículo.
+
+- **Precio**  
+  Campo obligatorio, solo se aceptan valores numéricos mayores que 0.
+
+- **Imagen**  
+  Obligatoria, debe seleccionarse desde el dispositivo del usuario.
+
+  - **Detalles Extra**  
+  Campo obligatorio, debe señalar detalles extras del vehículo.
+
+---
+
+## Ayuda al usuario
+
+El componente guía al usuario mediante:
+
+- Placeholders explicativos
+- Restricciones visuales
+- Mensajes de error específicos
+- Vista previa de la imagen seleccionada
+
+Esto reduce errores y mejora la experiencia de uso.
+
+---
+
+## Ejemplo de uso
+
+<Canvas>
+  <Story of={Stories.Vacio} />
+</Canvas>
+
+---
+
+## Comportamiento tras el envío
+
+Una vez enviado correctamente:
+
+- Los datos se limpian
+- Se evita el reenvío accidental
+
+Este comportamiento asegura coherencia y evita duplicados.

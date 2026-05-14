@@ -1,0 +1,65 @@
+---
+id: VehiculoForm
+title: Formulario de Vehículos (<VehiculoForm />)
+---
+
+import VehiculoForm from '../components/VehiculoForm';
+
+## Descripción General
+
+`VehiculoForm` es un **formulario controlado** diseñado para agregar vehículos a un listado de venta.  
+Incluye validación de campos, previsualización de imagen, manejo de estado de envío y ayuda sensible al contexto.  
+
+Es un **componente funcional con estado interno** (Controlled Component).
+
+Este formulario es útil para:
+
+- Concesionarios online.
+- Administradores de inventarios de vehículos.
+- Aplicaciones de gestión.
+
+---
+
+## Tabla de Propiedades (API Docs)
+
+`VehiculoForm` **no recibe props externas**; todo el estado se maneja internamente con `useState`.  
+Aun así, aquí se documenta su **estado interno**:
+
+| Propiedad    | Tipo                  | Descripción |
+|-------------|----------------------|------------|
+| `form.marca` | `string`             | Marca o modelo del vehículo. |
+| `form.descripcion` | `string`        | Descripción del vehículo. |
+| `form.precio` | `string`            | Precio en euros. |
+| `form.imagen` | `File \| null`      | Imagen seleccionada. |
+| `form.extra`  | `string`            | Información adicional del vehículo. |
+| `errores`    | `object`             | Mensajes de error por campo. |
+| `preview`    | `string \| null`     | URL de previsualización de la imagen. |
+| `enviado`    | `boolean`            | Indica si el formulario se envió correctamente. |
+
+---
+
+## Ejemplos
+
+### Formulario vacío
+<VehiculoForm />
+
+### Formulario con imagen seleccionada
+<VehiculoForm />
+
+> Seleccionar una imagen para ver la **previsualización y la validación** en acción.
+
+### Formulario con errores
+<VehiculoForm />
+
+> Envia el formularios sin datos para ver los errores.
+
+---
+
+## Accesibilidad (A11y)
+
+El componente `VehiculoForm` incorpora buenas prácticas de accesibilidad:
+
+- Los inputs y textarea tienen **etiquetas asociadas (`label`)**.
+- Mensajes de error claros justo debajo de cada campo.
+- Formulario vacio tras enviar correctamente, evitando confusión.
+- Ayudas contextuales (`placeholder`) para guiar al usuario sobre el dato esperado.
