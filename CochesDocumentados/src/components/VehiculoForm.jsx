@@ -1,39 +1,3 @@
-
-
-/**
- * VehiculoForm - Controlled form component for vehicle listing
- * 
- * A React component that manages a controlled form for adding vehicles to a sales listing.
- * Handles form validation, image preview, and submission state management.
- * 
- * @component
- * @returns {React.ReactElement} A form with fields for vehicle brand, description, price, and image
- * 
- * @example
- * return (
- *   <VehiculoForm />
- * )
- * 
- * @state {Object} form - Form data object
- * @state {string} form.marca - Vehicle brand/model name
- * @state {string} form.descripcion - Vehicle description
- * @state {string} form.precio - Vehicle price in euros
- * @state {File|null} form.imagen - Selected image file
- * 
- * @state {Object} errores - Validation errors object mapping field names to error messages
- * @state {string|null} preview - Image preview URL created from selected file
- * @state {boolean} enviado - Flag indicating if form has been submitted successfully
- * 
- * @function handleChange - Updates form state on input change, handles file input specially
- * @param {Event} e - Change event from input/textarea/file element
- * 
- * @function validar - Validates form fields and updates error state
- * @returns {boolean} True if all validations pass, false otherwise
- * 
- * @function handleSubmit - Handles form submission after validation
- * @param {Event} e - Form submit event
- */
-
 import { useState } from "react";
 import { useCreateCoche } from "../hooks/useCreateCoche.js";
 

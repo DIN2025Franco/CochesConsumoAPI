@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import "./assets/styles/index.css";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -14,8 +14,8 @@ rounded z-50"
     >
       Saltar al contenido principal
     </a>
-    <BrowserRouter>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>
 )
