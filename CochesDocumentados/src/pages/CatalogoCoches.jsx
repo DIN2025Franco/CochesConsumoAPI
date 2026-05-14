@@ -1,12 +1,20 @@
 import Tarjeta from "../components/Tarjeta.jsx";
 import ContenedorGlobal from "../components/ContenedorGlobal.jsx";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import SearchBar from "../components/SearchBar";
 import { useCoches } from "../hooks/useCoches.js";
+import useVoiceRecognition from "../hooks/useVoiceRecognition";
+import { MdMic } from "react-icons/md";
 
 function CatalogoCoches() {
     const { data: coches, loading, error } = useCoches();
     const [searchTerm, setSearchTerm] = useState("");
+
+    const voice = useVoiceRecognition((text) => {
+        // La API de voz a veces añade un punto final por defecto, se quita para que no rompa el filtro
+        const textoLimpio = text.trim().replace(/\.$/, "");
+        setSearchTerm(textoLimpio);
+    });
 
     // Filtro por nombre del vehículo
     const filteredVehicles = useMemo(() => {
@@ -19,32 +27,99 @@ function CatalogoCoches() {
         });
     }, [searchTerm, coches]);
 
+    // Detectamos si es móvil
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+    // Lógica para Swipe Horizontal sobre el buscador (Solo Móvil)
+    const touchStartX = useRef(0);
+    const touchEndX = useRef(0);
+
+    const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+        if (!touchStartX.current || !touchEndX.current) return;
+        const distance = touchEndX.current - touchStartX.current;
+        
+        // Si el usuario desliza hacia la derecha más de 50px
+        if (distance > 50) {
+            voice.startListening();
+        }
+        
+        // Reiniciamos valores
+        touchStartX.current = 0;
+        touchEndX.current = 0;
+    };
+
     return (
         <>
             <ContenedorGlobal titulo="Nuestros Vehículos" subtitulo="Prestigio, Calidad y Estetica">
 
-                <SearchBar
-                    searchTerm={searchTerm}
-                    onSearchChange={setSearchTerm}
-                    placeholder="Buscar vehículo por nombre..."
-                />
+                <div className="relative w-full max-w-lg mx-auto mb-6 z-10 mt-5">
+                    
+                    {/* Mensaje visual obligatorio por rúbrica para móvil */}
+                    {isMobile && voice.isSupported && (
+                        <p className="text-center text-sm font-medium text-gray-500 mb-2 transition-all">
+                            {voice.isListening ? (
+                                <span className="text-red-500 animate-pulse">🎤 Escuchando...</span>
+                            ) : (
+                                "Desliza → sobre la barra para buscar por voz"
+                            )}
+                        </p>
+                    )}
+
+                    {/* Contenedor del buscador con detección de Swipe */}
+                    <section 
+                        onTouchStart={isMobile ? handleTouchStart : undefined}
+                        onTouchMove={isMobile ? handleTouchMove : undefined}
+                        onTouchEnd={isMobile ? handleTouchEnd : undefined}
+                        className="relative"
+                    >
+                        <SearchBar
+                            searchTerm={searchTerm}
+                            onSearchChange={setSearchTerm}
+                            placeholder="Buscar vehículo por nombre..."
+                            className={!isMobile ? "pr-12" : ""} // espacio para el micrófono en desktop
+                        />
+                    </section>
+
+                    {/* Botón de voz solo si es desktop y soporta reconocimiento */}
+                    {!isMobile && voice.isSupported && (
+                        <button
+                            onClick={voice.startListening}
+                            className={`absolute right-3 bottom-4 transition mt-2
+                                ${voice.isListening
+                                    ? "text-red-500 animate-pulse"
+                                    : "text-gray-400 hover:text-[#d4af37]"
+                                }`}
+                            title="Buscar por voz"
+                        >
+                            <MdMic size={24} />
+                        </button>
+                    )}
+                </div>
 
                 {loading && <p className="text-center mt-8">Cargando vehículos...</p>}
                 {error && <p className="text-center text-red-500 mt-8">{error}</p>}
 
                 {!loading && !error && (
-                    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 w-full mt-8">
+                    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-8">
                         {filteredVehicles.length > 0 ? (
                             filteredVehicles.map((coche) => (
-                                <Tarjeta
-                                    key={coche._id}
-                                    nombre={coche.nombre}
-                                    foto={coche.imagen}
-                                    descripcion={coche.descripcion}
-                                    precio={coche.precio}
-                                    to={`/coches/${coche._id}`}
-                                >
-                                </Tarjeta>
+                                <div key={coche._id}>
+                                    <Tarjeta
+                                        nombre={coche.nombre}
+                                        foto={coche.imagen}
+                                        descripcion={coche.descripcion}
+                                        precio={coche.precio}
+                                        to={`/coches/${coche._id}`}
+                                    />
+                                </div>
                             ))
                         ) : (
                             <p className="col-span-full text-center text-gray-500 p-4">

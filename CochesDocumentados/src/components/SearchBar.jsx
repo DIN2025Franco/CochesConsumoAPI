@@ -1,6 +1,6 @@
-function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar..." }) {
+function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar...", className = "" }) {
     return (
-        <div className="mb-8 w-full max-w-lg mx-auto">
+        <div className={`w-full ${className}`}>
             <label htmlFor="search-input" className="sr-only">
                 {placeholder}
             </label>
@@ -9,11 +9,10 @@ function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar..." }) {
                 type="text"
                 placeholder={placeholder}
                 value={searchTerm}
-                // Llama a la función proporcionada por el padre en cada cambio
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="w-full p-3 mt-5 border-2 border-gray-300 rounded-lg shadow-inner
-                        focus:outline-none focus:ring-2 focus:ring-[#d4bb6d] focus:border-[#d4af37] transition
-                        duration-150 ease-in-out"
+                className="w-full p-4 border-2 border-gray-300 rounded-xl shadow-sm
+                        focus:outline-none focus:ring-2 focus:ring-[#d4af37] focus:border-[#d4af37] transition
+                        duration-150 ease-in-out bg-white text-lg"
                 aria-label={placeholder}
             />
         </div>
