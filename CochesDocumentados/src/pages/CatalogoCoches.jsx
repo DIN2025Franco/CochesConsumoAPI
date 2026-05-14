@@ -30,7 +30,7 @@ function CatalogoCoches() {
     // Detectamos si es móvil
     const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
-    // Lógica para Swipe Horizontal sobre el buscador (Solo Móvil)
+    // Swipe horizontal en móvil
     const touchStartX = useRef(0);
     const touchEndX = useRef(0);
 
@@ -46,12 +46,10 @@ function CatalogoCoches() {
         if (!touchStartX.current || !touchEndX.current) return;
         const distance = touchEndX.current - touchStartX.current;
         
-        // Si el usuario desliza hacia la derecha más de 50px
         if (distance > 50) {
             voice.startListening();
         }
         
-        // Reiniciamos valores
         touchStartX.current = 0;
         touchEndX.current = 0;
     };
@@ -62,7 +60,7 @@ function CatalogoCoches() {
 
                 <div className="relative w-full max-w-lg mx-auto mb-6 z-10 mt-5">
                     
-                    {/* Mensaje visual obligatorio por rúbrica para móvil */}
+                    {/* Texto de ayuda para el swipe */}
                     {isMobile && voice.isSupported && (
                         <p className="text-center text-sm font-medium text-gray-500 mb-2 transition-all">
                             {voice.isListening ? (
@@ -73,7 +71,7 @@ function CatalogoCoches() {
                         </p>
                     )}
 
-                    {/* Contenedor del buscador con detección de Swipe */}
+                    {/* Buscador (con eventos touch) */}
                     <section 
                         onTouchStart={isMobile ? handleTouchStart : undefined}
                         onTouchMove={isMobile ? handleTouchMove : undefined}
@@ -84,11 +82,11 @@ function CatalogoCoches() {
                             searchTerm={searchTerm}
                             onSearchChange={setSearchTerm}
                             placeholder="Buscar vehículo por nombre..."
-                            className={!isMobile ? "pr-12" : ""} // espacio para el micrófono en desktop
+                            className={!isMobile ? "pr-12" : ""}
                         />
                     </section>
 
-                    {/* Botón de voz solo si es desktop y soporta reconocimiento */}
+                    {/* Botón micro (solo PC) */}
                     {!isMobile && voice.isSupported && (
                         <button
                             onClick={voice.startListening}
@@ -111,7 +109,7 @@ function CatalogoCoches() {
                     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full mt-8">
                         {filteredVehicles.length > 0 ? (
                             filteredVehicles.map((coche) => (
-                                <div key={coche._id}>
+                                <section key={coche._id}>
                                     <Tarjeta
                                         nombre={coche.nombre}
                                         foto={coche.imagen}
@@ -119,7 +117,7 @@ function CatalogoCoches() {
                                         precio={coche.precio}
                                         to={`/coches/${coche._id}`}
                                     />
-                                </div>
+                                </section>
                             ))
                         ) : (
                             <p className="col-span-full text-center text-gray-500 p-4">

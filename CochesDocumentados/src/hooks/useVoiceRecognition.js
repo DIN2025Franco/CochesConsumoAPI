@@ -1,25 +1,11 @@
 /**
- * NOTA — Reconocimiento de voz en navegador
- *
- * Este hook utiliza la Web Speech API (SpeechRecognition), una API
- * experimental y no estandarizada que actualmente solo funciona de
- * forma fiable en navegadores basados en Chromium (principalmente Chrome).
- *
- * Aunque permite simular una Natural User Interface (NUI) basada en voz,
- * NO constituye una NUI real por los siguientes motivos:
- *
- * - El navegador controla completamente el acceso al micrófono.
- * - El reconocimiento solo puede iniciarse tras una acción explícita
- *   del usuario (click, touch), por razones de seguridad.
- * - El soporte varía según navegador, sistema operativo y dispositivo.
- * - En entornos móviles, el teclado virtual y la gestión del foco pueden
- *   interrumpir o finalizar el reconocimiento de forma automática.
- * - La existencia de la API (isSupported) no garantiza su funcionamiento real.
- *
- * Este enfoque es válido como demostración conceptual en aplicaciones web,
- * pero para interfaces naturales de voz robustas y multiplataforma se
- * recomienda el uso de aplicaciones nativas (React Native) o servicios
- * Speech-to-Text externos (Whisper, Azure, Google Speech, etc.).
+ * Hook personalizado para el reconocimiento de voz.
+ * Nos permite implementar una interfaz NUI (Natural User Interface) en el catálogo de coches.
+ * 
+ * Funciona usando la API nativa SpeechRecognition del navegador.
+ * 
+ * @param {Function} onResult - Función que recibe el texto dictado por el usuario.
+ * @returns {Object} Estado de soporte, si está escuchando, y las funciones para arrancar/parar el micro.
  */
 import { useState, useEffect, useRef } from "react";
 
