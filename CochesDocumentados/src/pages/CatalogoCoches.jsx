@@ -45,11 +45,11 @@ function CatalogoCoches() {
     const handleTouchEnd = () => {
         if (!touchStartX.current || !touchEndX.current) return;
         const distance = touchEndX.current - touchStartX.current;
-        
+
         if (distance > 20) {
             voice.startListening();
         }
-        
+
         touchStartX.current = 0;
         touchEndX.current = 0;
     };
@@ -58,8 +58,7 @@ function CatalogoCoches() {
         <>
             <ContenedorGlobal titulo="Nuestros Vehículos" subtitulo="Prestigio, Calidad y Estetica">
 
-                <div className="relative w-full max-w-lg mx-auto mb-6 z-10 mt-5">
-                    
+                <section className="relative w-full max-w-lg mx-auto mb-6 z-10 mt-5">
                     {/* Texto de ayuda para el swipe */}
                     {isMobile && voice.isSupported && (
                         <p className="text-center text-sm font-medium text-gray-500 mb-2 transition-all">
@@ -72,7 +71,7 @@ function CatalogoCoches() {
                     )}
 
                     {/* Buscador (con eventos touch) */}
-                    <section 
+                    <section
                         onTouchStart={isMobile ? handleTouchStart : undefined}
                         onTouchMove={isMobile ? handleTouchMove : undefined}
                         onTouchEnd={isMobile ? handleTouchEnd : undefined}
@@ -100,7 +99,7 @@ function CatalogoCoches() {
                             <MdMic size={24} />
                         </button>
                     )}
-                </div>
+                </section>
 
                 {loading && <p className="text-center mt-8">Cargando vehículos...</p>}
                 {error && <p className="text-center text-red-500 mt-8">{error}</p>}

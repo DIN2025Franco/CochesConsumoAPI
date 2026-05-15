@@ -1,6 +1,6 @@
 function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar...", className = "" }) {
     return (
-        <div className={`w-full ${className}`}>
+        <section className={`w-full ${className}`}>
             <label htmlFor="search-input" className="sr-only">
                 {placeholder}
             </label>
@@ -15,7 +15,7 @@ function SearchBar({ searchTerm, onSearchChange, placeholder = "Buscar...", clas
                         duration-150 ease-in-out bg-white text-lg"
                 aria-label={placeholder}
             />
-        </div>
+        </section>
     );
 }
 export default SearchBar;

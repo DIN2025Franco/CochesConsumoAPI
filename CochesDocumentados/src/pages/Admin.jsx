@@ -12,26 +12,26 @@ function Admin() {
       <ContenedorGlobal titulo="Panel de Administración" subtitulo={`Bienvenido, ${user?.username}`}>
 
         {/* Sección de Informe / Estadísticas */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 mt-5">
-          <div className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
+        <article className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 mt-5">
+          <section className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
             <h4 className="text-gray-600 text-xs uppercase font-bold mb-2">Total Vehículos</h4>
             <p className="text-lg md:text-2xl font-bold text-black">{loadingStats ? '...' : stats?.totalVehiculos}</p>
-          </div>
-          <div className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
+          </section>
+          <section className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
             <h4 className="text-gray-600 text-xs uppercase font-bold mb-2">Valor Total del Stock</h4>
             <p className="text-lg md:text-2xl font-bold text-black">{loadingStats ? '...' : stats?.valorTotal}</p>
-          </div>
-          <div className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
+          </section>
+          <section className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
             <h4 className="text-gray-600 text-xs uppercase font-bold mb-2">Precio Medio</h4>
             <p className="text-lg md:text-2xl font-bold text-black">{loadingStats ? '...' : stats?.precioMedio}</p>
-          </div>
-          <div className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
+          </section>
+          <section className="bg-gray-100 custom-shadow p-6 rounded-lg border-t-4 border-[#d4af37]">
             <h4 className="text-gray-600 text-xs uppercase font-bold mb-2">Categorías</h4>
             <p className="text-lg md:text-2xl font-bold text-black">{loadingStats ? '...' : stats?.categorias}</p>
-          </div>
-        </div>
+          </section>
+        </article>
 
-        <div className="flex justify-between items-center mb-5 gap-5 md:gap-10">
+        <section className="flex justify-between items-center mb-5 gap-5 md:gap-10">
           <h3 className="text-3xl md:text-4xl text-shadow-custom text-left text-[#d4af37] font-bold secondary-bg md:w-100 p-5">Vender un Nuevo Vehículo</h3>
           <button
             onClick={logoutUser}
@@ -39,14 +39,14 @@ function Admin() {
           >
             Cerrar Sesión
           </button>
-        </div>
+        </section>
 
-        <div className="flex flex-col lg:flex-row gap-10">
-          <div className="flex-1">
+        <section className="flex flex-col lg:flex-row gap-10">
+          <section className="flex-1">
             <VehiculoForm />
-          </div>
+          </section>
           <img src="src/assets/img/car.png" alt="Silueta de coche" className="hidden lg:block object-contain max-w-md self-center" />
-        </div>
+        </section>
       </ContenedorGlobal>
     </section>
   );
