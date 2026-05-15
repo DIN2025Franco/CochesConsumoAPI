@@ -46,7 +46,7 @@ function CatalogoCoches() {
         if (!touchStartX.current || !touchEndX.current) return;
         const distance = touchEndX.current - touchStartX.current;
         
-        if (distance > 50) {
+        if (distance > 20) {
             voice.startListening();
         }
         
